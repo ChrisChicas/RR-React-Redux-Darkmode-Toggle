@@ -1,20 +1,23 @@
 import './App.css';
 import { useSelector, useDispatch } from 'react-redux'
+import {fetchData, clearData, incrementData, decrementData, inputData} from "./features/dataSlice"
 
 function App() {
-  // your logic goes here!
+  const dispatch = useDispatch()
+  const data = useSelector(state => state.data)
 
   return (
     <div className="App">
+      <h1>{data.objectId}</h1>
       <div>
-        <button onClick={() => {}}>Trigger Thunk</button>
-        <button onClick={() => {}}>Clear</button>
-        <button onClick={() => {}}>Next</button>
-        <button onClick={() => {}}>Back</button>
+        <button onClick={() => {dispatch(fetchData())}}>Trigger Thunk</button>
+        <button onClick={() => {dispatch(clearData())}}>Clear</button>
+        <button onClick={() => {dispatch(incrementData())}}>Next</button>
+        <button onClick={() => {dispatch(decrementData())}}>Back</button>
       </div>
-      <input onChange={(e) => { }} />
+      <input value={data.objectId} onChange={(e) => {dispatch(inputData(Number(e.target.value)))}} />
       <div>
-        {/* Once you have plugged everything in, render the image here! */}
+        {data.apiData.primaryImage ? <img style={{height: "50vh"}} src={data.apiData.primaryImage} alt="object"></img> : <h2>No Image</h2>}
       </div>
     </div>
   );
