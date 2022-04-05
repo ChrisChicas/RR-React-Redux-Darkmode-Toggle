@@ -34,7 +34,6 @@ export const fetchData = () => {
         let state = getState()
         const response = await fetch(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${state.data.objectId}`)
         const jsonData = await response.json()
-        console.log(jsonData)
         dispatch(setData(jsonData))
     }
     return fetchDataThunk
